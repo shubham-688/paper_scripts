@@ -54,12 +54,9 @@ def dist_cal(self,lat,long):
 # station_5G='OOD'
 # for station_5G in ['AES01','AES13','AES15']:
 # client = Client("IRIS")
-# client_5g=Client('http://auspass.edu.au:80',user='5g',password='grape71')
+# client_5g=Client('http://auspass.edu.au:80',user='5g',password='')
 # inventory = client_5g.get_stations(network="5G",station='*',level='response')
 
-# station_name=[]
-# for i in range(len(inventory.get_contents()['stations'])):
-    # station_name.append(inventory.get_contents()['stations'][i].split()[0].split('.')[1])
 
 data_stack=[]
 file_list=['rf_stack_1Q.h5','rf_stack_5J.h5','rf_stack_7B.h5','rf_stack_AU.h5','rf_stack_1F.h5',\
