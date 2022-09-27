@@ -3,21 +3,16 @@
 # awk 'NR==FNR{a[$4]=$0; next} {if ($1 in a){print $1,$2,a[$1]}}' station_try.dat X.txt | awk '{print($3,$4,$2,$1)}' > X_.txt
 
 set PS=sedi_basin.ps
-
 set topogrd = etopo_sa.grd
-
 set Rmap=-R130/142/-33/-24 # Lake_eyre+ Flinders
 set Rmap=-R127.5/142/-38.5/-24.5 # SA
 set J=-JM12/11 #sa
-
 set grd=temp.grd
 set lake_eyre = ~/Research/geological_data_straya/hydrological_data/Vector_data/lake_eyre.gmt
 set lake_torrens = ~/Research/geological_data_straya/hydrological_data/Vector_data/lake_torrens.gmt
 set tect_inl = ~/Research/Lake_eyre_data/geological_ft/Tectonic_Zones_Inlier.gmt
 
 gmt6 gmtset  MAP_FRAME_TYPE fancy+ MAP_FRAME_WIDTH 1p FONT_ANNOT_PRIMARY 8.5p MAP_TICK_LENGTH_PRIMARY 2.5p MAP_FRAME_PEN 0.8p
-
-# gmt6 makecpt -C$lajo -T0/2300/100 -D > lajo.cpt
 
 gmt6 psbasemap -BneWS -Bxa2f1 -Bya2f1 $J $Rmap -X2c -Y2c -K >! $PS
 
@@ -27,20 +22,9 @@ gmt6 psbasemap -BneWS -Bxa2f1 -Bya2f1 $J $Rmap -X2c -Y2c -K >! $PS
 
 # gmt6 grdimage moho_05.grd $J $Rmap -Bx -By -C$cpt -K -O -V >> $PS
 
-
 gmt6 grdimage $topogrd $J $Rmap -Bx -By -Coleron_abyss.cpt -I+nt.85 -K -O >> $PS # -I+nt.6 original..increased for extra contarst
 gmt6 pscoast $Rmap $J -Bx -By -Na/.05p -A10 -P -K -Di -O -W.1p >> $PS #-A10+l -Ia
-
-# gmt6 psxy ~/Research/Lake_eyre_data/geological_ft/CrustalBoundaries.txt $Rmap $J -W0.65p,black,. -O -K >> $PS ### crustal boundary
 gmt6 psxy Gawler_Final.gmt $Rmap $J -W0.75p,darkblue,- -O -K >> $PS ### crustal boundary
-
-###
-# gmt6 psxy ../json_txt/Warburton_Basin.txt $Rmap $J -W0.35p,Salmon -O -K  >> $PS ### crustal boundary
-# gmt6 psxy ../json_txt/Eromanga_Basin.txt $Rmap $J -W0.35p,CornflowerBlue  -O -K  >> $PS ### crustal boundary
-###
-# gmt6 psxy ../json_txt/Lake_eyre.txt $Rmap $J -W0.35p,DarkSeaGreen -O -K  >> $PS ### crustal boundary
-# gmt6 psxy ../json_txt/Billa_Kalina_Basin.txt $Rmap $J -W0.35p,DarkSeaGreen -O -K  >> $PS ### crustal boundary
-# gmt6 psxy ../json_txt/Hamilton_Basin.txt $Rmap $J -W0.35p,DarkSeaGreen  -O -K  >> $PS ### crustal boundary
 
 gmt6 psxy basins/meso_protereo_carli.txt $Rmap $J -W0.5p,maroon -Gmaroon@40 -O -K  >> $PS
 # or seinna
@@ -59,7 +43,6 @@ gmt6 psxy $Rmap $J mine_sa.txt -Sc.23 -Gdimgray -B -O -P -K >> $PS
 gmt6 psxy $Rmap $J mine_sa.txt -Sx.18 -W1,white -B -O -P -K >> $PS
 
 ####################################################################################
-
 echo 141.2 -36 VIC | gmt6 pstext $Rmap $J -F+f8.5p,Helvetica-Bold,MidnightBlue+a90 -O -P -K  >> $PS
 echo 141.2 -30.8 NSW | gmt6 pstext $Rmap $J -F+f8.5p,Helvetica-Bold,MidnightBlue+a90 -O -P -K  >> $PS
 echo 141.2 -26.5 QLD | gmt6 pstext $Rmap $J -F+f8.5p,Helvetica-Bold,MidnightBlue+a90 -O -P -K  >> $PS
@@ -93,8 +76,6 @@ echo 138.6 -32.7 Flinders Ranges | gmt6 pstext $Rmap $J -F+f7.5p,Helvetica+a-80 
 echo 131 -26.5 Musgrave Province | gmt6 pstext $Rmap $J -F+f8p,Helvetica -Gwhite@40 -O -P -K  >> $PS
 echo 134.8 -31.6 Gawler Craton | gmt6 pstext $Rmap $J -F+f10p,Helvetica -Gwhite@40 -O -P -K  >> $PS
 # echo 133.5 -30.3 Gawler Craton | gmt6 pstext $Rmap $J -F+f10p,Helvetica -Gwhite@40 -O -P -K  >> $PS
-
-
 
 gmt6 pstext $Rmap $J -F+f4p,Helvetica -Gwhite@40 -O -P -K << eof >> $PS
 136.873056 -30.65 Olympic Dam
