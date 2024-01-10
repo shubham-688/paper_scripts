@@ -1,0 +1,33 @@
+#!/bin/csh
+
+set PS=fig_inset.ps
+
+gmt6 gmtset  MAP_FRAME_TYPE plain MAP_FRAME_WIDTH .1p FONT_ANNOT_PRIMARY 6.5p MAP_TICK_LENGTH_PRIMARY .05p MAP_FRAME_PEN 0.8p
+
+set GAB = ~/Research/geological_data_straya/artesian_basin/81672/GAB_Hydrological_Boundary.gmt
+set sedi_LE = ~/Research/geological_data_straya/sedi_basin/cenozoic_Lake_eyre.txt
+
+##############
+# set Rmap=-R130/142/-34/-24 # SA
+#
+gmt6 psbasemap -Ba20f10 -Bwsne -V -R110E/155E/44S/10S -JM3/2.5i -K >! $PS
+
+gmt6 pscoast -R -J -Bx -By -Na/.05p -A10000 -P -SWhite -Gcadetblue@70 -Di -O -K -W.1p >> $PS #-A10+l -Ia
+# gmt6 psxy $sedi_LE -R -J  -GLightGoldenrodYellow -O  >> $PS
+
+# gmt6 psxy $GAB -R -J -W0.05p,navy -GdarkSlateBlue -V -O  >> $PS # great artesian basin
+#set Rmap=-R130/142/-34/-24# SA
+gmt6 psxy -R -J -W1p,black,- -V -O << EOF >> $PS
+130 -34
+130 -24
+142 -24
+142 -34
+130 -34
+EOF
+
+# gmt6 pscoast -R110E/155E/44S/9S -JM1.5/1i -P -Ba10f5 -Bwsne -Wfaint -N2/.05p  -EAU+gbisque -Gbrown -Sazure1 -Da -X10 -Y-5 -V --FORMAT_GEO_MAP=dddF >> $PS
+# gmt5 psxy -R -J -O -T -X10 -Y-5 -V >> $PS
+# AQT_1Q
+
+# gmt6 psconvert -A -Tf -P -Z $PS
+# open fig_inset.pdf
